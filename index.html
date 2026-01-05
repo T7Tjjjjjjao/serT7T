@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T7T | Lightning Hub</title>
+    <title>T7T | Secure Lightning Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -27,6 +27,9 @@
         
         input, textarea { width: 100%; margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.07); border: 1px solid #333; color: #00d2ff; border-radius: 10px; box-sizing: border-box; outline: none; }
         
+        .copy-btn { background: #222; color: #ff0055; border: 1px solid #ff0055; padding: 5px 10px; border-radius: 5px; cursor: pointer; float: right; font-size: 12px; transition: 0.3s; }
+        .copy-btn:hover { background: #ff0055; color: #fff; }
+
         .social-icons { display: flex; justify-content: center; gap: 40px; margin-top: 30px; }
         .social-icons i { font-size: 38px; cursor: pointer; transition: 0.4s; color: #fff; }
         .fa-tiktok:hover { color: #ff0050; filter: drop-shadow(0 0 15px #ff0050); }
@@ -36,28 +39,45 @@
 <body>
 
 <div id="lock-screen">
-    <h2 style="color:#00d2ff;">SYSTEM LOCKED</h2>
-    <input type="password" id="p" placeholder="Enter Code (71700)">
-    <button class="flash-btn" onclick="auth()">Unlock</button>
+    <h2 style="color:#00d2ff; text-shadow: 0 0 10px #00d2ff;">ACCESS REQUIRED</h2>
+    <input type="password" id="p" placeholder="•••••">
+    <button class="flash-btn" onclick="auth()">Unlock System</button>
 </div>
 
 <div id="main-container">
-    <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T HUB</h2>
+    <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T SCRIPT HUB</h2>
     <input type="text" id="m" placeholder="اسم الماب (Arabic Support)">
+    
+    <div style="width: 100%; overflow: hidden; margin-top: 10px;">
+        <button class="copy-btn" onclick="copyAction()">Copy Script</button>
+    </div>
     <textarea id="s" rows="6" placeholder="Paste script here (English Only)..."></textarea>
+    
     <button class="flash-btn" onclick="send()">⚡ SEND SCRIPT ⚡</button>
+    
     <div class="social-icons">
-        <i class="fab fa-tiktok" onclick="window.open('https://www.tiktok.com/@t7_t777?_r=1&_t=ZS-92pPMpUH0fR')"></i>
+        <i class="fab fa-tiktok" onclick="window.open('https://www.tiktok.com/@t7_t777')"></i>
         <i class="fab fa-discord" onclick="window.open('https://discord.com/invite/HxFkpWcBDv')"></i>
     </div>
 </div>
 
 <script>
+    // الرقم السري محمي برمجياً فقط
     function auth() {
-        if(document.getElementById('p').value === "71700") {
+        const input = document.getElementById('p').value;
+        if(input === "71700") {
             document.getElementById('lock-screen').style.display='none';
             document.getElementById('main-container').style.display='block';
-        } else { alert("Wrong Code!"); }
+        } else {
+            alert("Access Denied!");
+        }
+    }
+
+    function copyAction() {
+        const text = document.getElementById('s');
+        text.select();
+        document.execCommand('copy');
+        alert("Script Copied! ⚡");
     }
 
     async function send() {
@@ -65,17 +85,17 @@
         const s = document.getElementById('s').value;
         const url = "https://discord.com/api/webhooks/1457279944630730752/88Z2uQzv3eFV5_X-hMb5omJlDc6AjvDUjk-FRMG1XCnmFOf7AuMbYAqAvXXBOwhkU5C2";
 
-        if(!m || !s) return alert("Fill fields!");
+        if(!m || !s) return alert("Fill all fields!");
 
-        // الحل الجذري: إرسال الرسالة كـ نص عادي فقط لضمان النسخ في الجوال
         const payload = {
-            content: `@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』\n\n**🔥 New Script Released!**\n**سكربت ماب:** ${m}\n\n\`\`\`\n${s}\n\`\`\`\n**اضغط مطولاً على المربع الرمادي للنسخ 👆🏻🫡**\n\n**حقوقنا : T7T**\n**Power by T7T System**`
+            content: `@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』\n\n**اسم الماب:** ${m}\n\n\`\`\`\n${s}\n\`\`\`\n**اضغط مطولاً على المربع الرمادي للنسخ 👆🏻🫡**\n\n**حقوقنا : T7T**`
         };
 
         try {
             await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            alert("Sent! Now copying is easy in Discord ⚡");
-            document.getElementById('m').value = ""; document.getElementById('s').value = "";
+            alert("Script Sent Successfully! ⚡🚀");
+            document.getElementById('m').value = ""; 
+            document.getElementById('s').value = "";
         } catch (e) { alert("Error!"); }
     }
 </script>
