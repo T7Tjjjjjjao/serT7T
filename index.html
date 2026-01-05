@@ -3,98 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T7T | Lightning Hub</title>
+    <title>T7T | Final Fix</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            margin: 0;
-            background: linear-gradient(135deg, #000 0%, #1a0033 50%, #4b0000 100%);
-            background-size: 400% 400%;
-            animation: lightningBg 8s ease infinite;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-            overflow: hidden;
+            margin: 0; background: #000; color: #fff; font-family: 'Arial', sans-serif;
+            display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden;
         }
-        @keyframes lightningBg { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        #lock-screen { text-align: center; background: rgba(0,0,0,0.9); padding: 40px; border: 2px solid #00d2ff; border-radius: 20px; box-shadow: 0 0 25px #00d2ff; }
-        
-        #main-container { display: none; width: 90%; max-width: 450px; background: rgba(15, 15, 15, 0.9); padding: 30px; border-radius: 30px; border: 1px solid #ff0055; box-shadow: 0 0 50px rgba(255, 0, 85, 0.4); backdrop-filter: blur(15px); }
-        
-        .flash-btn { width: 100%; padding: 15px; border: none; border-radius: 12px; background: linear-gradient(90deg, #ff0055, #00d2ff, #ff0055); background-size: 200%; color: white; font-weight: 900; cursor: pointer; transition: 0.5s; animation: flashEffect 3s linear infinite; text-transform: uppercase; margin-top: 15px; }
-        @keyframes flashEffect { 0% { background-position: 0%; box-shadow: 0 0 10px #ff0055; } 50% { box-shadow: 0 0 35px #00d2ff; } 100% { background-position: 200%; box-shadow: 0 0 10px #ff0055; } }
-        
-        input, textarea { width: 100%; margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.07); border: 1px solid #333; color: #00d2ff; border-radius: 10px; box-sizing: border-box; outline: none; }
-        
-        .copy-btn { background: #222; color: #00d2ff; border: 1px solid #00d2ff; padding: 5px 10px; border-radius: 5px; cursor: pointer; float: right; font-size: 12px; transition: 0.3s; }
-        .copy-btn:hover { background: #00d2ff; color: #000; }
-
-        .social-icons { display: flex; justify-content: center; gap: 40px; margin-top: 30px; }
-        .social-icons i { font-size: 38px; cursor: pointer; transition: 0.4s; color: #fff; }
-        .fa-tiktok:hover { color: #ff0050; filter: drop-shadow(0 0 15px #ff0050); }
-        .fa-discord:hover { color: #5865F2; filter: drop-shadow(0 0 15px #5865F2); }
+        #main-container {
+            width: 90%; max-width: 400px; background: rgba(20, 20, 20, 0.95); padding: 30px;
+            border-radius: 20px; border: 1px solid #ff0055; text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
+        }
+        .flash-btn {
+            width: 100%; padding: 15px; border: none; border-radius: 10px;
+            background: linear-gradient(90deg, #ff0055, #00d2ff); color: white;
+            font-weight: bold; cursor: pointer; margin-top: 20px; animation: glow 2s infinite;
+        }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 10px #ff0055; } 50% { box-shadow: 0 0 25px #00d2ff; } }
+        input, textarea {
+            width: 100%; margin: 10px 0; padding: 12px; background: #111;
+            border: 1px solid #333; color: #00d2ff; border-radius: 8px; box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
 
-<div id="lock-screen">
-    <h2 style="color:#00d2ff; text-shadow: 0 0 10px #00d2ff;">ACCESS REQUIRED</h2>
-    <input type="password" id="p" placeholder="•••••">
-    <button class="flash-btn" onclick="auth()">Unlock System</button>
-</div>
-
 <div id="main-container">
-    <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T SCRIPT HUB</h2>
-    <input type="text" id="m" placeholder="اسم الماب (بالعربي)">
-    
-    <div style="width: 100%; overflow: hidden; margin-top: 10px;">
-        <button class="copy-btn" onclick="copyAction()">Copy Script</button>
-    </div>
-    <textarea id="s" rows="6" placeholder="Paste script here..."></textarea>
-    
-    <button class="flash-btn" onclick="send()">⚡ ارسال بنور البرق ⚡</button>
-    
-    <div class="social-icons">
-        <i class="fab fa-tiktok" onclick="window.open('https://www.tiktok.com/@t7_t777')"></i>
-        <i class="fab fa-discord" onclick="window.open('https://discord.com/invite/HxFkpWcBDv')"></i>
-    </div>
+    <h2 style="color:#ff0055;">T7T LIGHTNING</h2>
+    <input type="text" id="m" placeholder="اسم الماب">
+    <textarea id="s" rows="6" placeholder="ضع السكربت هنا..."></textarea>
+    <button class="flash-btn" onclick="send()">⚡ ارسال (نسخ مضمون) ⚡</button>
 </div>
 
 <script>
-    function auth() {
-        if(document.getElementById('p').value === "71700") {
-            document.getElementById('lock-screen').style.display='none';
-            document.getElementById('main-container').style.display='block';
-        } else { alert("Wrong Code!"); }
-    }
-
-    function copyAction() {
-        const text = document.getElementById('s');
-        text.select();
-        document.execCommand('copy');
-        alert("Copied to clipboard! ⚡");
-    }
-
     async function send() {
         const m = document.getElementById('m').value;
         const s = document.getElementById('s').value;
         const url = "https://discord.com/api/webhooks/1457279944630730752/88Z2uQzv3eFV5_X-hMb5omJlDc6AjvDUjk-FRMG1XCnmFOf7AuMbYAqAvXXBOwhkU5C2";
 
-        if(!m || !s) return alert("Please fill all fields!");
+        if(!m || !s) return alert("عب البيانات!");
 
-        // هذا هو السر: إرسال كل شيء في "content" وبدون "embeds" نهائياً
-        // هذا التنسيق يضمن ظهور خيار النسخ عند الضغط المطول في الجوال
+        // سنرسل السكربت كرسالة نصية بسيطة جداً لضمان ظهور خيار النسخ
         const payload = {
-            content: `@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』\n\n**سكربت ماب:** ${m}\n\n\`\`\`\n${s}\n\`\`\`\n**اضغط مطولاً على السكربت للنسخ 👆🏻🫡**\n\n**حقوقنا : T7T**`
+            content: `@here\n🚀 **سكربت جديد لماب:** ${m}\n\n${s}\n\n**الحقوق: T7T**`
         };
 
         try {
-            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            alert("Sent! Members can now copy easily ⚡🚀");
-            document.getElementById('m').value = ""; 
-            document.getElementById('s').value = "";
-        } catch (e) { alert("Error!"); }
+            await fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            alert("تم الإرسال! جرب النسخ الآن ⚡");
+        } catch (e) { alert("خطأ!"); }
     }
 </script>
 </body>
