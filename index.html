@@ -6,7 +6,6 @@
     <title>T7T | Lightning System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* تصميم الخلفية المتدرجة والمتحركة */
         body {
             margin: 0;
             background: radial-gradient(circle at center, #1a0033, #000000, #4b0000);
@@ -17,154 +16,67 @@
             display: flex; justify-content: center; align-items: center; height: 100vh;
             overflow: hidden;
         }
-
-        @keyframes moveGradient { 
-            0% { background-position: top left; } 
-            100% { background-position: bottom right; } 
-        }
-
-        /* شاشة الدخول بالرقم السري */
-        #lock-screen {
-            text-align: center; background: rgba(0,0,0,0.9); padding: 40px;
-            border: 2px solid #00d2ff; border-radius: 20px; box-shadow: 0 0 30px #00d2ff;
-            z-index: 10;
-        }
-
-        /* الحاوية الرئيسية للموقع */
-        #main-container {
-            display: none; width: 90%; max-width: 450px;
-            background: rgba(10, 10, 10, 0.85); padding: 25px;
-            border-radius: 25px; border: 1px solid #ff0055;
-            box-shadow: 0 0 40px rgba(255, 0, 85, 0.4);
-            backdrop-filter: blur(10px);
-        }
-
-        /* زر البرق اللامع */
-        .flash-btn {
-            width: 100%; padding: 15px; border: none; border-radius: 12px;
-            background: linear-gradient(90deg, #ff0055, #00d2ff, #ff0055);
-            background-size: 200%; color: white; font-weight: bold;
-            cursor: pointer; transition: 0.4s; animation: lightning 3s linear infinite;
-            text-transform: uppercase; letter-spacing: 1px;
-            margin-top: 10px;
-        }
-
-        @keyframes lightning {
-            0% { background-position: 0%; box-shadow: 0 0 10px #ff0055; }
-            50% { box-shadow: 0 0 30px #00d2ff; }
-            100% { background-position: 200%; box-shadow: 0 0 10px #ff0055; }
-        }
-
-        input, textarea {
-            width: 100%; margin: 12px 0; padding: 14px;
-            background: rgba(255,255,255,0.05); border: 1px solid #333; 
-            color: #00d2ff; border-radius: 8px; box-sizing: border-box;
-            outline: none;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #00d2ff;
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
-        }
-
-        /* أزرار التواصل الاجتماعي */
+        @keyframes moveGradient { 0% { background-position: top left; } 100% { background-position: bottom right; } }
+        #lock-screen { text-align: center; background: rgba(0,0,0,0.9); padding: 40px; border: 2px solid #00d2ff; border-radius: 20px; box-shadow: 0 0 30px #00d2ff; }
+        #main-container { display: none; width: 90%; max-width: 450px; background: rgba(10, 10, 10, 0.85); padding: 25px; border-radius: 25px; border: 1px solid #ff0055; box-shadow: 0 0 40px rgba(255, 0, 85, 0.4); backdrop-filter: blur(10px); }
+        .flash-btn { width: 100%; padding: 15px; border: none; border-radius: 12px; background: linear-gradient(90deg, #ff0055, #00d2ff, #ff0055); background-size: 200%; color: white; font-weight: bold; cursor: pointer; transition: 0.4s; animation: lightning 3s linear infinite; text-transform: uppercase; margin-top: 10px; }
+        @keyframes lightning { 0% { background-position: 0%; box-shadow: 0 0 10px #ff0055; } 50% { box-shadow: 0 0 30px #00d2ff; } 100% { background-position: 200%; box-shadow: 0 0 10px #ff0055; } }
+        input, textarea { width: 100%; margin: 12px 0; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #00d2ff; border-radius: 8px; box-sizing: border-box; outline: none; }
         .social-icons { display: flex; justify-content: center; gap: 35px; margin-top: 25px; }
-        .social-icons i { font-size: 35px; cursor: pointer; transition: 0.3s; animation: float 2s infinite ease-in-out; }
-        
-        @keyframes float { 
-            0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-10px); } 
-        }
-        
+        .social-icons i { font-size: 35px; cursor: pointer; transition: 0.3s; }
         .fa-tiktok:hover { color: #ff0050; filter: drop-shadow(0 0 15px #ff0050); }
         .fa-discord:hover { color: #5865F2; filter: drop-shadow(0 0 15px #5865F2); }
-
-        h2 { text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
 <div id="lock-screen">
     <h2 style="color:#00d2ff; text-shadow: 0 0 10px #00d2ff;">ACCESS REQUIRED</h2>
-    <input type="password" id="p" placeholder="Enter Secret Code (71700)">
-    <button class="flash-btn" onclick="openMe()">Unlock System</button>
+    <input type="password" id="p" placeholder="71700">
+    <button class="flash-btn" onclick="openMe()">Unlock</button>
 </div>
 
 <div id="main-container">
     <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T SCRIPT HUB</h2>
-    
-    <label style="font-size: 12px; color: #aaa;">Map Name (Arabic Supported)</label>
-    <input type="text" id="m" placeholder="اسم الماب هنا...">
-    
-    <label style="font-size: 12px; color: #aaa;">Script Code (English/Symbols Only)</label>
-    <textarea id="s" rows="6" placeholder="Paste your script here..."></textarea>
-    
-    <button class="flash-btn" onclick="send()">⚡ SEND TO DISCORD ⚡</button>
-
+    <input type="text" id="m" placeholder="اسم الماب (Arabic)">
+    <textarea id="s" rows="6" placeholder="السكربت هنا (English Only)"></textarea>
+    <button class="flash-btn" onclick="send()">⚡ ارسال بنور البرق ⚡</button>
     <div class="social-icons">
-        <i class="fab fa-tiktok" title="TikTok" onclick="window.open('https://www.tiktok.com/@t7_t777?_r=1&_t=ZS-92pPMpUH0fR')"></i>
-        <i class="fab fa-discord" title="Discord" onclick="window.open('https://discord.com/invite/HxFkpWcBDv')"></i>
+        <i class="fab fa-tiktok" onclick="window.open('https://www.tiktok.com/@t7_t777')"></i>
+        <i class="fab fa-discord" onclick="window.open('https://discord.com/invite/HxFkpWcBDv')"></i>
     </div>
 </div>
 
 <script>
-    // الوظيفة لفتح الموقع بالباسوورد
     function openMe() {
         if(document.getElementById('p').value === "71700") {
             document.getElementById('lock-screen').style.display='none';
             document.getElementById('main-container').style.display='block';
-        } else { 
-            alert("Wrong Password! Access Denied."); 
-        }
+        } else { alert("Wrong!"); }
     }
 
-    // منع الحروف العربية في خانة السكربت فقط
-    document.getElementById('s').addEventListener('input', function() {
-        if(/[أ-ي]/.test(this.value)) {
-            alert("عذراً، خانة السكربت تقبل الإنجليزية والرموز فقط!");
-            this.value = this.value.replace(/[أ-ي]/g, '');
-        }
-    });
-
-    // وظيفة الإرسال إلى الـ Webhook
     async function send() {
-        const mapName = document.getElementById('m').value;
-        const scriptCode = document.getElementById('s').value;
-        const webhookUrl = "https://discord.com/api/webhooks/1457279944630730752/88Z2uQzv3eFV5_X-hMb5omJlDc6AjvDUjk-FRMG1XCnmFOf7AuMbYAqAvXXBOwhkU5C2";
+        const m = document.getElementById('m').value;
+        const s = document.getElementById('s').value;
+        const url = "https://discord.com/api/webhooks/1457279944630730752/88Z2uQzv3eFV5_X-hMb5omJlDc6AjvDUjk-FRMG1XCnmFOf7AuMbYAqAvXXBOwhkU5C2";
 
-        if(!mapName || !scriptCode) {
-            return alert("الرجاء ملء جميع الخانات!");
-        }
+        if(!m || !s) return alert("امسح البيانات وعبها صح!");
 
-        // بناء الرسالة بشكل احترافي
+        // التعديل هنا: السكربت يرسل كـ نص عادي خارج الـ Embed ليسهل نسخه
         const payload = {
-            content: "@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』",
+            content: `@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』\n\n**اسم الماب:** ${m}\n\`\`\`\n${s}\n\`\`\`\nاضغط مطولاً على السكربت للنسخ 👆🏻🫡`,
             embeds: [{
-                color: 16711680, // لون أحمر
-                title: "🔥 New Script Released!",
-                description: `**سكربت ماب: ${mapName}**\n\n\`\`\`\n${scriptCode}\n\`\`\`\n**اضغط للنسخ 👆🏻🫡**\n\n**حقوقنا : T7T**`,
-                footer: { text: "Power by T7T System" },
-                timestamp: new Date()
+                color: 16711680,
+                description: `**تم نشر سكربت جديد بنجاح!**\n**الحقوق: T7T**`,
+                footer: { text: "T7T System Lightning" }
             }]
         };
 
         try {
-            const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-
-            if(response.ok) {
-                alert("تم الإرسال بنجاح بنور البرق! ⚡");
-                document.getElementById('m').value = "";
-                document.getElementById('s').value = "";
-            } else {
-                alert("خطأ في الإرسال، تأكد من الـ Webhook.");
-            }
-        } catch (e) {
-            alert("حدث خطأ في الاتصال!");
-        }
+            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            alert("تم الإرسال! الحين جرب تنسخ من الديسكورد");
+            document.getElementById('m').value = ""; document.getElementById('s').value = "";
+        } catch (e) { alert("خطأ!"); }
     }
 </script>
 </body>
