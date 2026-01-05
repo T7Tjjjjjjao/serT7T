@@ -3,60 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T7T | Final Fix</title>
+    <title>T7T | Dual Send System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             margin: 0; background: #000; color: #fff; font-family: 'Arial', sans-serif;
             display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden;
+            background: linear-gradient(135deg, #000 0%, #1a0033 50%, #4b0000 100%); background-size: 400% 400%; animation: lightningBg 8s ease infinite;
         }
-        #main-container {
-            width: 90%; max-width: 400px; background: rgba(20, 20, 20, 0.95); padding: 30px;
-            border-radius: 20px; border: 1px solid #ff0055; text-align: center;
-            box-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
-        }
-        .flash-btn {
-            width: 100%; padding: 15px; border: none; border-radius: 10px;
-            background: linear-gradient(90deg, #ff0055, #00d2ff); color: white;
-            font-weight: bold; cursor: pointer; margin-top: 20px; animation: glow 2s infinite;
-        }
-        @keyframes glow { 0%, 100% { box-shadow: 0 0 10px #ff0055; } 50% { box-shadow: 0 0 25px #00d2ff; } }
-        input, textarea {
-            width: 100%; margin: 10px 0; padding: 12px; background: #111;
-            border: 1px solid #333; color: #00d2ff; border-radius: 8px; box-sizing: border-box;
-        }
+        @keyframes lightningBg { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        #lock-screen { text-align: center; background: rgba(0,0,0,0.9); padding: 40px; border: 2px solid #00d2ff; border-radius: 20px; box-shadow: 0 0 25px #00d2ff; }
+        #main-container { display: none; width: 90%; max-width: 450px; background: rgba(15, 15, 15, 0.9); padding: 30px; border-radius: 30px; border: 1px solid #ff0055; box-shadow: 0 0 50px rgba(255, 0, 85, 0.4); backdrop-filter: blur(15px); }
+        .flash-btn { width: 100%; padding: 15px; border: none; border-radius: 12px; background: linear-gradient(90deg, #ff0055, #00d2ff); color: white; font-weight: 900; cursor: pointer; transition: 0.5s; animation: flashEffect 3s linear infinite; text-transform: uppercase; margin-top: 15px; }
+        @keyframes flashEffect { 0% { background-position: 0%; box-shadow: 0 0 10px #ff0055; } 50% { box-shadow: 0 0 35px #00d2ff; } 100% { background-position: 200%; box-shadow: 0 0 10px #ff0055; } }
+        input, textarea { width: 100%; margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.07); border: 1px solid #333; color: #00d2ff; border-radius: 10px; box-sizing: border-box; outline: none; }
     </style>
 </head>
 <body>
 
+<div id="lock-screen">
+    <h2 style="color:#00d2ff;">ACCESS REQUIRED</h2>
+    <input type="password" id="p" placeholder="•••••">
+    <button class="flash-btn" onclick="auth()">Unlock System</button>
+</div>
+
 <div id="main-container">
-    <h2 style="color:#ff0055;">T7T LIGHTNING</h2>
+    <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T SCRIPT HUB</h2>
     <input type="text" id="m" placeholder="اسم الماب">
     <textarea id="s" rows="6" placeholder="ضع السكربت هنا..."></textarea>
-    <button class="flash-btn" onclick="send()">⚡ ارسال (نسخ مضمون) ⚡</button>
+    <button class="flash-btn" onclick="send()">⚡ ارسال (رسالتين منفصلة) ⚡</button>
 </div>
 
 <script>
+    function auth() {
+        if(document.getElementById('p').value === "71700") {
+            document.getElementById('lock-screen').style.display='none';
+            document.getElementById('main-container').style.display='block';
+        } else { alert("Access Denied!"); }
+    }
+
     async function send() {
         const m = document.getElementById('m').value;
         const s = document.getElementById('s').value;
         const url = "https://discord.com/api/webhooks/1457279944630730752/88Z2uQzv3eFV5_X-hMb5omJlDc6AjvDUjk-FRMG1XCnmFOf7AuMbYAqAvXXBOwhkU5C2";
 
-        if(!m || !s) return alert("عب البيانات!");
+        if(!m || !s) return alert("عب البيانات كاملة!");
 
-        // سنرسل السكربت كرسالة نصية بسيطة جداً لضمان ظهور خيار النسخ
-        const payload = {
-            content: `@here\n🚀 **سكربت جديد لماب:** ${m}\n\n${s}\n\n**الحقوق: T7T**`
+        // الرسالة الأولى: المعلومات
+        const infoPayload = {
+            content: `@here\n🚀 **تم نشر سكربت ماب:** ${m}\n**السكربت في الرسالة التالية بالأسفل 👇🏻**\n**حقوقنا : T7T**`
+        };
+
+        // الرسالة الثانية: السكربت فقط للنسخ المباشر
+        const scriptPayload = {
+            content: `${s}`
         };
 
         try {
-            await fetch(url, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-            alert("تم الإرسال! جرب النسخ الآن ⚡");
-        } catch (e) { alert("خطأ!"); }
+            // إرسال الرسالة الأولى
+            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(infoPayload) });
+            
+            // إرسال الرسالة الثانية بعد ثانية بسيطة
+            setTimeout(async () => {
+                await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(scriptPayload) });
+                alert("تم الإرسال بنجاح! السكربت الآن في رسالة منفصلة للنسخ ⚡");
+                document.getElementById('m').value = ""; 
+                document.getElementById('s').value = "";
+            }, 1000);
+
+        } catch (e) { alert("خطأ في الإرسال!"); }
     }
 </script>
 </body>
