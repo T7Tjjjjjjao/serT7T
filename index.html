@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T7T | Secure Lightning Hub</title>
+    <title>T7T | Lightning Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -27,8 +27,8 @@
         
         input, textarea { width: 100%; margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.07); border: 1px solid #333; color: #00d2ff; border-radius: 10px; box-sizing: border-box; outline: none; }
         
-        .copy-btn { background: #222; color: #ff0055; border: 1px solid #ff0055; padding: 5px 10px; border-radius: 5px; cursor: pointer; float: right; font-size: 12px; transition: 0.3s; }
-        .copy-btn:hover { background: #ff0055; color: #fff; }
+        .copy-btn { background: #222; color: #00d2ff; border: 1px solid #00d2ff; padding: 5px 10px; border-radius: 5px; cursor: pointer; float: right; font-size: 12px; transition: 0.3s; }
+        .copy-btn:hover { background: #00d2ff; color: #000; }
 
         .social-icons { display: flex; justify-content: center; gap: 40px; margin-top: 30px; }
         .social-icons i { font-size: 38px; cursor: pointer; transition: 0.4s; color: #fff; }
@@ -46,14 +46,14 @@
 
 <div id="main-container">
     <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T SCRIPT HUB</h2>
-    <input type="text" id="m" placeholder="اسم الماب (Arabic Support)">
+    <input type="text" id="m" placeholder="اسم الماب (بالعربي)">
     
     <div style="width: 100%; overflow: hidden; margin-top: 10px;">
         <button class="copy-btn" onclick="copyAction()">Copy Script</button>
     </div>
-    <textarea id="s" rows="6" placeholder="Paste script here (English Only)..."></textarea>
+    <textarea id="s" rows="6" placeholder="Paste script here..."></textarea>
     
-    <button class="flash-btn" onclick="send()">⚡ SEND SCRIPT ⚡</button>
+    <button class="flash-btn" onclick="send()">⚡ ارسال بنور البرق ⚡</button>
     
     <div class="social-icons">
         <i class="fab fa-tiktok" onclick="window.open('https://www.tiktok.com/@t7_t777')"></i>
@@ -62,22 +62,18 @@
 </div>
 
 <script>
-    // الرقم السري محمي برمجياً فقط
     function auth() {
-        const input = document.getElementById('p').value;
-        if(input === "71700") {
+        if(document.getElementById('p').value === "71700") {
             document.getElementById('lock-screen').style.display='none';
             document.getElementById('main-container').style.display='block';
-        } else {
-            alert("Access Denied!");
-        }
+        } else { alert("Wrong Code!"); }
     }
 
     function copyAction() {
         const text = document.getElementById('s');
         text.select();
         document.execCommand('copy');
-        alert("Script Copied! ⚡");
+        alert("Copied to clipboard! ⚡");
     }
 
     async function send() {
@@ -85,15 +81,17 @@
         const s = document.getElementById('s').value;
         const url = "https://discord.com/api/webhooks/1457279944630730752/88Z2uQzv3eFV5_X-hMb5omJlDc6AjvDUjk-FRMG1XCnmFOf7AuMbYAqAvXXBOwhkU5C2";
 
-        if(!m || !s) return alert("Fill all fields!");
+        if(!m || !s) return alert("Please fill all fields!");
 
+        // هذا هو السر: إرسال كل شيء في "content" وبدون "embeds" نهائياً
+        // هذا التنسيق يضمن ظهور خيار النسخ عند الضغط المطول في الجوال
         const payload = {
-            content: `@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』\n\n**اسم الماب:** ${m}\n\n\`\`\`\n${s}\n\`\`\`\n**اضغط مطولاً على المربع الرمادي للنسخ 👆🏻🫡**\n\n**حقوقنا : T7T**`
+            content: `@here\n@ᵀ⁷ᵀ 〆 『 منشن سكربتات 』\n\n**سكربت ماب:** ${m}\n\n\`\`\`\n${s}\n\`\`\`\n**اضغط مطولاً على السكربت للنسخ 👆🏻🫡**\n\n**حقوقنا : T7T**`
         };
 
         try {
             await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            alert("Script Sent Successfully! ⚡🚀");
+            alert("Sent! Members can now copy easily ⚡🚀");
             document.getElementById('m').value = ""; 
             document.getElementById('s').value = "";
         } catch (e) { alert("Error!"); }
