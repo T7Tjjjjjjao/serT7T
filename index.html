@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T7T | Dual Send System</title>
+    <title>T7T | White Text System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -31,7 +31,7 @@
     <h2 style="text-align:center; color:#ff0055; text-shadow: 0 0 15px #ff0055;">T7T SCRIPT HUB</h2>
     <input type="text" id="m" placeholder="اسم الماب">
     <textarea id="s" rows="6" placeholder="ضع السكربت هنا..."></textarea>
-    <button class="flash-btn" onclick="send()">⚡ ارسال (رسالتين منفصلة) ⚡</button>
+    <button class="flash-btn" onclick="send()">⚡ ارسال (رسالة بيضاء) ⚡</button>
 </div>
 
 <script>
@@ -49,12 +49,12 @@
 
         if(!m || !s) return alert("عب البيانات كاملة!");
 
-        // الرسالة الأولى: المعلومات
+        // الرسالة الأولى: معلومات الماب (نص أبيض عادي)
         const infoPayload = {
-            content: `@here\n🚀 **تم نشر سكربت ماب:** ${m}\n**السكربت في الرسالة التالية بالأسفل 👇🏻**\n**حقوقنا : T7T**`
+            content: `@here\n🚀 **تم نشر سكربت جديد**\n**اسم الماب:** ${m}\n**السكربت في الرسالة اللي تحت 👇🏻**\n**حقوقنا : T7T**`
         };
 
-        // الرسالة الثانية: السكربت فقط للنسخ المباشر
+        // الرسالة الثانية: السكربت فقط (نص أبيض صافي للنسخ)
         const scriptPayload = {
             content: `${s}`
         };
@@ -63,10 +63,10 @@
             // إرسال الرسالة الأولى
             await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(infoPayload) });
             
-            // إرسال الرسالة الثانية بعد ثانية بسيطة
+            // إرسال السكربت لحاله بعد ثانية
             setTimeout(async () => {
                 await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(scriptPayload) });
-                alert("تم الإرسال بنجاح! السكربت الآن في رسالة منفصلة للنسخ ⚡");
+                alert("تم الإرسال بنجاح! السكربت الحين رسالة بيضاء لحالها ⚡");
                 document.getElementById('m').value = ""; 
                 document.getElementById('s').value = "";
             }, 1000);
